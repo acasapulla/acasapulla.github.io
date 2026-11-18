@@ -1,0 +1,12 @@
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="site-name" href="{{ '/' | relative_url }}">{{ site.author }}</a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="{{ '/#projects' | relative_url }}">Projects</a></li>
+        <li><a href="{{ '/#about' | relative_url }}">About</a></li>
+        {% if site.resume %}<li><a href="{{ site.resume | relative_url }}">Résumé</a></li>{% endif %}
+      </ul>
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,42 @@
+# ---- About you (edit these) ----
+title: Anthony Casapulla
+author: Anthony Casapulla
+tagline: Cybersecurity & Technology Risk
+description: >-
+  Portfolio of Anthony Casapulla — cybersecurity and technology risk projects,
+  assessments, and write-ups.
+linkedin: https://www.linkedin.com/in/anthony-casapulla/
+github: https://github.com/acasapulla
+# resume: /assets/files/resume.pdf   # uncomment once the PDF is in assets/files/
+# email: you@example.com              # uncomment to show an email link
+
+# ---- Site settings ----
+url: https://acasapulla.github.io
+baseurl: ""
+lang: en
+
+collections:
+  projects:
+    output: true
+    permalink: /projects/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: projects
+    values:
+      layout: project
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+exclude:
+  - docs/
+  - scripts/
+  - test/
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor/
+  - .superpowers/
