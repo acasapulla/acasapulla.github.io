@@ -71,4 +71,30 @@ echo "== Email set"
 build email no "email: someone@example.com"
 has "$OUT/index.html" 'href="mailto:someone@example.com"' "email link when set"
 
+echo "== Projects: empty state (real _projects only, example is unpublished)"
+build empty no
+has    "$OUT/index.html" "Projects coming soon" "empty-state message"
+hasnt  "$OUT/index.html" "Example Project" "unpublished example not listed"
+absent "$OUT/projects/example-project" "unpublished example has no page"
+
+echo "== Projects: with fixtures"
+build projects yes
+I="$OUT/index.html"
+hasnt  "$I" "Projects coming soon" "no empty-state when projects exist"
+hasnt  "$I" "Example Project" "unpublished example still not listed"
+before "$I" "Featured Old" "Newer Project" "featured project listed first"
+before "$I" "Newer Project" "Minimal Project" "then newest first"
+has    "$I" 'href="/projects/newer/"' "card links to project page"
+N="$OUT/projects/newer/index.html"
+exists "$N" "project page generated"
+has    "$N" 'href="/assets/files/x.pdf"' "report button"
+has    "$N" "NIST CSF" "tags on project page"
+has    "$N" "<h2 id=\"overview\">Overview</h2>" "markdown body rendered"
+F="$OUT/projects/featured-old/index.html"
+has    "$F" 'href="https://github.com/acasapulla/featured-old"' "repo button"
+M="$OUT/projects/minimal/index.html"
+exists "$M" "minimal project page generated"
+hasnt  "$M" 'class="tags"' "no empty tag list"
+hasnt  "$M" 'class="btn' "no empty link buttons"
+
 if [ "$FAILS" -eq 0 ]; then echo "ALL PASS"; else echo "FAILED ($FAILS)"; exit 1; fi

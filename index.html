@@ -14,7 +14,17 @@ layout: default
 
 <section id="projects" class="wrap section">
   <h2>Projects</h2>
-  <!-- project-grid -->
+  {% assign sorted = site.projects | sort: "date" | reverse %}
+  {% assign featured = sorted | where: "featured", true %}
+  {% assign others = sorted | where_exp: "p", "p.featured != true" %}
+  {% if sorted.size > 0 %}
+  <ul class="card-grid">
+    {% for p in featured %}{% include project-card.html project=p %}{% endfor %}
+    {% for p in others %}{% include project-card.html project=p %}{% endfor %}
+  </ul>
+  {% else %}
+  <p class="empty">Projects coming soon.</p>
+  {% endif %}
 </section>
 
 <section id="about" class="wrap section">
