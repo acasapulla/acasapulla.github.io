@@ -111,7 +111,8 @@ the body.
 ### Look
 - Cyberpunk / neon-city theme, dark only: night-sky gradient, neon cyan +
   magenta accents, SVG city skyline with lit windows in the hero, faint scanlines.
-- Fonts (Google Fonts): Orbitron for headings, Share Tech Mono for labels/tags,
+- Fonts (Google Fonts, owner-picked): Space Grotesk for the name, Exo 2 for
+  headings, Share Tech Mono for labels/tags,
   Inter for body text. Readable line length (~70ch).
 - Animations (title flicker, cursor blink, antenna beacons) are disabled under
   `prefers-reduced-motion`. Text colors ≥ 4.5:1 and focus ring ≥ 3:1 on the
