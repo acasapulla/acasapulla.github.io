@@ -16,13 +16,14 @@ rebuilds the site automatically on every push to `main`.
    |---|---|---|
    | `title` | yes | Project name |
    | `date` | yes | `YYYY-MM-DD`; newest projects show first |
-   | `summary` | yes | 2–3 sentences shown on the card |
+   | `description` | yes | 2–3 sentences shown on the card and in link previews (LinkedIn, etc.) |
    | `tags` | no | e.g. `[Risk Assessment, NIST CSF]` |
    | `featured` | no | `true` pins it to the top |
    | `repo` | no | Link to a GitHub repo → "View code" button |
    | `report` | no | e.g. `/assets/files/report.pdf` → "Read the report" button |
 4. Write the Overview / What I Did / Results & Takeaways sections in Markdown.
-   Images go in `assets/img/` and are used like `![Diagram](/assets/img/diagram.png)`.
+   Images go in `assets/img/` (create the folder the first time: `mkdir -p assets/img`)
+   and are used like `![Diagram](/assets/img/diagram.png)`.
 5. Publish:
    ```bash
    git add .
@@ -36,7 +37,14 @@ rebuilds the site automatically on every push to `main`.
 Name, tagline, LinkedIn, GitHub, résumé and (optional) email live at the top of
 `_config.yml`. The intro and About text are in `index.html`.
 
-To update your résumé, replace `assets/files/resume.pdf` and push.
+### Adding your résumé
+
+1. `mkdir -p assets/files` and save the PDF as `assets/files/resume.pdf`.
+2. In `_config.yml`, remove the `# ` in front of `resume: /assets/files/resume.pdf`.
+3. Commit and push. "Résumé" links then appear in the header, intro and footer.
+
+> **Heads-up:** anything under `assets/` is public, even if no page links to it.
+> Use a version of your résumé without your phone number or home address.
 
 ## Preview locally (optional)
 

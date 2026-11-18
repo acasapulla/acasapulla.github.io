@@ -8,7 +8,7 @@ published: false
 
 title: "Example Project"
 date: 2026-11-17                 # used for ordering (newest first)
-summary: "2–3 sentences: the problem you looked at and what you found or built."
+description: "2–3 sentences: the problem you looked at and what you found or built."
 tags: [Risk Assessment, NIST CSF] # short labels shown on the card
 featured: false                  # true = pinned to the top of the list
 # repo: https://github.com/acasapulla/your-repo   # optional: adds a "View code" button
