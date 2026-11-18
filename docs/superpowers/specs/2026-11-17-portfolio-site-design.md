@@ -30,8 +30,9 @@ to add many over time, so **adding a project must be trivial** (one Markdown fil
 
 ## Anti-goals
 
-- "Hacker movie" aesthetic (green-on-black matrix, glitch effects) — reads as
-  unserious to GRC/risk recruiters.
+- Neon styling that hurts readability: body text stays plain, high-contrast and
+  non-animated (see Look). *(Originally "no hacker aesthetic"; owner chose a
+  cyberpunk / neon-city theme on 2026-11-17.)*
 - Anything that makes adding a project require editing more than one file.
 - Publishing placeholder/fake projects as if real.
 
@@ -108,9 +109,13 @@ Project page renders title, tags, date, link buttons (only those present), then
 the body.
 
 ### Look
-- Clean, professional, light by default with automatic dark mode
-  (`prefers-color-scheme`).
-- System font stack, one restrained accent color, readable line length (~70ch).
+- Cyberpunk / neon-city theme, dark only: night-sky gradient, neon cyan +
+  magenta accents, SVG city skyline with lit windows in the hero, faint scanlines.
+- Fonts (Google Fonts): Orbitron for headings, Share Tech Mono for labels/tags,
+  Inter for body text. Readable line length (~70ch).
+- Animations (title flicker, cursor blink, antenna beacons) are disabled under
+  `prefers-reduced-motion`. Text colors ≥ 4.5:1 and focus ring ≥ 3:1 on the
+  background (checked by the test script).
 - Responsive card grid (1 column on phone, 2–3 on desktop).
 - Accessible: semantic HTML, sufficient contrast, visible focus states.
 

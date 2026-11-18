@@ -97,18 +97,30 @@ has    "$I" "A newer project with a report link." "card shows description"
 
 echo "== CSS"
 C="$OUT/assets/css/style.css"
-# Light-mode focus ring must reach 3:1 against white (WCAG 1.4.11)
-FOCUS=$(grep -m1 -- '--focus:' "$C" | grep -o '#[0-9a-fA-F]\{6\}')
-python3 -I - "$FOCUS" <<'PY' && pass "focus ring contrast >= 3:1 ($FOCUS)" || fail "focus ring contrast >= 3:1 ($FOCUS)"
-import sys
-h = sys.argv[1].lstrip('#')
-def lin(c):
-    c = c / 255
-    return c / 12.92 if c <= 0.03928 else ((c + 0.055) / 1.055) ** 2.4
-r, g, b = (int(h[i:i+2], 16) for i in (0, 2, 4))
-L = 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b)
-sys.exit(0 if 1.05 / (L + 0.05) >= 3 else 1)
-PY
+# Contrast against the page background (--bg): focus ring >= 3:1 (WCAG 1.4.11),
+# body and muted text >= 4.5:1 (WCAG 1.4.3)
+contrast() { # contrast <var> <min>
+  python3 -I - "$C" "$1" "$2" <<'PYC'
+import re, sys
+css, var, need = open(sys.argv[1]).read(), sys.argv[2], float(sys.argv[3])
+def val(v): return re.search(r"--" + v + r":\s*(#[0-9a-fA-F]{6})", css).group(1)
+def lum(h):
+    h = h.lstrip('#')
+    def lin(c):
+        c = c / 255
+        return c / 12.92 if c <= 0.03928 else ((c + 0.055) / 1.055) ** 2.4
+    r, g, b = (int(h[i:i+2], 16) for i in (0, 2, 4))
+    return 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b)
+a, b = sorted([lum(val(var)), lum(val("bg"))], reverse=True)
+ratio = (a + 0.05) / (b + 0.05)
+print(f"{ratio:.1f}:1")
+sys.exit(0 if ratio >= need else 1)
+PYC
+}
+for spec in "focus 3" "text 4.5" "muted 4.5" "cyan 4.5" "magenta 4.5"; do
+  set -- $spec
+  r=$(contrast "$1" "$2") && pass "--$1 contrast $r >= $2:1" || fail "--$1 contrast $r >= $2:1"
+done
 # Long unbroken strings (URLs, hashes, paths) must wrap instead of widening the page
 css_rule() { # css_rule <file> <selector> <declaration-regex>: a rule for exactly <selector> contains the declaration
   python3 -I - "$@" <<'PYCSS'
